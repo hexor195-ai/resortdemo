@@ -32,9 +32,9 @@ export function ResortHero({ onOpenBooking }: ResortHeroProps) {
           className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
         />
 
-        {/* Editorial gradient preserving crisp sky/building clarity in center */}
+        {/* Editorial gradient — dark bottom for text legibility, lighter mid to show more of the photo */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-[#0b2115]/95 via-[#123724]/30 to-[#0b2115]/55"
+          className="absolute inset-0 bg-gradient-to-t from-[#0b2115]/90 via-[#123724]/15 to-[#0b2115]/45"
           aria-hidden="true"
         />
 

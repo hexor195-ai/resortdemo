@@ -1,5 +1,5 @@
 import { Menu, MessageCircle, Phone, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RESORT_INFO } from '../data/resortData';
 
 export interface NavbarProps {
@@ -17,9 +17,16 @@ const NAV_LINKS = [
 
 export function Navbar({ onOpenBooking }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#123724]/15 bg-[#faf9f5]/95 shadow-xs backdrop-blur-md">
+    <header className={`sticky top-0 z-40 border-b border-[#123724]/15 bg-[#faf9f5]/95 backdrop-blur-md transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-xs'}`}>
       <div
         className="h-[3px] w-full bg-gradient-to-r from-[#123724] via-[#6bae3b] to-[#8a5a18]"
         aria-hidden="true"

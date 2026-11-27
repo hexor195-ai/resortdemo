@@ -157,7 +157,7 @@ export function GuestVoicesCarousel() {
               </div>
 
               <Quote className="mt-5 h-7 w-7 text-[#a3e66f]/60" aria-hidden="true" />
-              <p className="mt-2 font-display text-xl leading-relaxed text-white sm:text-2xl">
+              <p className="mt-2 font-display text-xl italic leading-relaxed text-white sm:text-2xl">
                 “{review.quote}”
               </p>
               <p className="mt-5 text-sm font-semibold text-white/75">

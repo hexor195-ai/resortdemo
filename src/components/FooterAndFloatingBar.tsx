@@ -18,7 +18,7 @@ export function FooterAndFloatingBar({ onOpenBooking }: FooterAndFloatingBarProp
                 className="h-14 w-14 rounded-2xl border border-[#6bae3b]/60 object-cover shadow"
               />
               <div>
-                <h2 className="font-display text-2xl font-bold text-white">
+                <h2 className="font-display type-brand font-semibold text-white">
                   {RESORT_INFO.displayName}
                 </h2>
                 <p className="text-xs font-medium text-[#a3e66f]">{RESORT_INFO.tagline}</p>

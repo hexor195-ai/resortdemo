@@ -117,3 +117,24 @@ dialog::backdrop {
     scroll-behavior: smooth;
   }
 }
+
+/* Subtle section entrance animation (opt-in via .reveal class) */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: revealUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .reveal-delay-1 { animation-delay: 0.1s; }
+  .reveal-delay-2 { animation-delay: 0.2s; }
+  .reveal-delay-3 { animation-delay: 0.3s; }
+}
