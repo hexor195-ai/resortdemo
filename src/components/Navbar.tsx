@@ -19,7 +19,11 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#123724]/12 bg-[#faf9f5]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-[#123724]/15 bg-[#faf9f5]/95 shadow-xs backdrop-blur-md">
+      <div
+        className="h-[3px] w-full bg-gradient-to-r from-[#123724] via-[#6bae3b] to-[#8a5a18]"
+        aria-hidden="true"
+      />
       <a
         href="#main-content"
         className="visually-hidden fixed left-3 top-3 z-50 rounded-lg bg-[#123724] px-4 py-2 text-sm font-semibold text-white shadow-lg"
@@ -28,18 +32,33 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
       </a>
 
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
-        <a href="#hero-showcase" className="flex min-w-0 items-center gap-3 text-left">
-          <img
-            src={RESORT_INFO.logoSrc}
-            alt="Palm Bliss Resort logo"
-            className="h-11 w-11 shrink-0 rounded-xl border border-[#6bae3b]/50 object-cover shadow-sm sm:h-12 sm:w-12"
-          />
+        <a
+          href="#hero-showcase"
+          className="group flex min-w-0 items-center gap-3.5 text-left"
+        >
+          <span className="shrink-0 rounded-2xl bg-white p-0.5 shadow-md ring-2 ring-[#6bae3b]/75 transition group-hover:ring-[#123724]">
+            <img
+              src={RESORT_INFO.logoSrc}
+              alt="Palm Bliss Resort logo"
+              className="h-[50px] w-[50px] rounded-[13px] object-cover sm:h-14 sm:w-14"
+            />
+          </span>
           <span className="min-w-0">
-            <span className="block truncate font-display text-base font-bold tracking-tight text-[#123724] sm:text-lg">
-              {RESORT_INFO.displayName}
+            <span className="block truncate font-display text-xl font-bold uppercase tracking-[0.06em] text-[#123724] sm:text-2xl">
+              Palm Bliss
             </span>
-            <span className="block whitespace-nowrap text-[11px] font-semibold uppercase tracking-wider text-[#475569]">
-              Nadhavade · Konkan
+            <span className="mt-0.5 flex items-center gap-1.5">
+              <span
+                className="h-[2px] w-3.5 shrink-0 rounded-full bg-[#6bae3b] sm:w-4"
+                aria-hidden="true"
+              />
+              <span className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em] text-[#8a5a18] sm:text-[11px]">
+                RESORT · NADHAVADE
+              </span>
+              <span
+                className="hidden h-[2px] w-4 shrink-0 rounded-full bg-[#6bae3b] sm:inline-block"
+                aria-hidden="true"
+              />
             </span>
           </span>
         </a>
