@@ -28,10 +28,10 @@ export function MunchingBitesSection() {
               </div>
             </div>
 
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#123724] sm:text-4xl">
+            <h2 className="type-section mt-4 text-[#123724]">
               {MUNCHING_BITES_INFO.name}
             </h2>
-            <p className="mt-2.5 text-base leading-relaxed text-[#475569]">
+            <p className="mt-2.5 max-w-[60ch] text-base leading-relaxed text-[#475569]">
               {MUNCHING_BITES_INFO.summary}
             </p>
 

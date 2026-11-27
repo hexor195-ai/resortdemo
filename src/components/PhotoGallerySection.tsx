@@ -86,12 +86,12 @@ export function PhotoGallerySection() {
     <section id="gallery" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
       <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
         <div>
-          <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-[#9e3b2b]">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[#9e3b2b]">
             <Camera className="h-3.5 w-3.5" aria-hidden="true" />
             Real Property Photography
           </span>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#123724] sm:text-4xl">
-            Inside Palm Bliss Resort
+          <h2 className="type-section mt-2 text-[#123724]">
+            Inside <em className="font-medium italic">Palm Bliss Resort</em>
           </h2>
         </div>
 

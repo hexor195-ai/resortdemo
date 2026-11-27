@@ -10,13 +10,13 @@ export function RoomsShowcaseSection({ onBookRoom }: RoomsShowcaseSectionProps) 
     <section id="rooms" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div className="max-w-2xl">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#9e3b2b]">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9e3b2b]">
             Garden-View Cottages
           </p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#123724] sm:text-4xl">
-            Comfortable AC Rooms Surrounded by Greenery
+          <h2 className="type-section mt-2 text-[#123724]">
+            Comfortable AC Rooms <em className="font-medium italic">Surrounded by Greenery</em>
           </h2>
-          <p className="mt-2.5 text-base text-[#475569]">
+          <p className="mt-2.5 max-w-[60ch] text-base leading-relaxed text-[#475569]">
             Spotless, air-conditioned rooms inside our two-story Konkan laterite wings. Check-in{' '}
             {RESORT_INFO.checkIn} · Check-out {RESORT_INFO.checkOut}.
           </p>

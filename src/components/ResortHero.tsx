@@ -91,13 +91,13 @@ export function ResortHero({ onOpenBooking }: ResortHeroProps) {
                 </span>
               </div>
 
-              <h1 className="mt-3 text-3xl font-bold tracking-tight text-white drop-shadow-md sm:text-5xl lg:text-6xl">
-                Palm Bliss Resort
+              <h1 className="type-hero mt-3 text-white drop-shadow-md">
+                Palm Bliss <em className="font-medium italic text-[#d4f7b5]">Resort</em>
               </h1>
-              <p className="mt-2.5 text-sm leading-relaxed text-white/90 sm:text-lg">
+              <p className="mt-3 max-w-[54ch] text-base leading-relaxed text-white/90 sm:text-lg">
                 Peaceful red-laterite garden cottages in Nadhavade’s lush greenery — paired with
                 coastal flavors and warm family dining at{' '}
-                <strong className="text-[#d4f7b5]">Munching Bites</strong>.
+                <strong className="font-semibold text-[#d4f7b5]">Munching Bites</strong>.
               </p>
 
               <div className="mt-5 flex flex-wrap items-center gap-3">

@@ -44,19 +44,19 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
             />
           </span>
           <span className="min-w-0">
-            <span className="block truncate font-display text-xl font-bold uppercase tracking-[0.06em] text-[#123724] sm:text-2xl">
-              Palm Bliss
+            <span className="font-display type-brand block truncate text-[#123724]">
+              Palm <em className="font-medium italic text-[#1b4d32]">Bliss</em>
             </span>
             <span className="mt-0.5 flex items-center gap-1.5">
               <span
-                className="h-[2px] w-3.5 shrink-0 rounded-full bg-[#6bae3b] sm:w-4"
+                className="h-[1.5px] w-3.5 shrink-0 rounded-full bg-[#6bae3b] sm:w-4"
                 aria-hidden="true"
               />
-              <span className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em] text-[#8a5a18] sm:text-[11px]">
+              <span className="whitespace-nowrap text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-[#8a5a18]">
                 RESORT · NADHAVADE
               </span>
               <span
-                className="hidden h-[2px] w-4 shrink-0 rounded-full bg-[#6bae3b] sm:inline-block"
+                className="hidden h-[1.5px] w-4 shrink-0 rounded-full bg-[#6bae3b] sm:inline-block"
                 aria-hidden="true"
               />
             </span>

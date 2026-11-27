@@ -100,8 +100,8 @@ export function GuestVoicesCarousel() {
                 Google Reviews ({RESORT_INFO.ratingBreakdown.fiveStarPct}% 5-Star)
               </span>
             </div>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              What Families &amp; Travelers Love Most
+            <h2 className="type-section mt-3 text-white">
+              What Families &amp; Travelers <em className="font-medium italic text-[#d4f7b5]">Love Most</em>
             </h2>
           </div>
 

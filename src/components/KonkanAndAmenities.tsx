@@ -20,11 +20,11 @@ export function KonkanAndAmenities() {
         {/* Verified Property Amenities */}
         <div className="rounded-3xl border border-[#123724]/15 bg-white p-6 shadow-sm lg:col-span-6 lg:p-8">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-[#9e3b2b]">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9e3b2b]">
               Honest Hospitality Details
             </p>
-            <h2 className="mt-1.5 text-2xl font-bold text-[#123724] sm:text-3xl">
-              Property Amenities &amp; Timings
+            <h2 className="type-section mt-1.5 text-[#123724]">
+              Property Amenities &amp; <em className="font-medium italic">Timings</em>
             </h2>
           </div>
 
@@ -81,13 +81,13 @@ export function KonkanAndAmenities() {
         {/* Nearby Konkan Landmarks */}
         <div className="flex flex-col justify-between lg:col-span-6">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-[#9e3b2b]">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9e3b2b]">
               Explore Sindhudurg &amp; Konkan
             </p>
-            <h2 className="mt-1.5 text-2xl font-bold text-[#123724] sm:text-3xl">
-              Waterfalls, Hills &amp; Scenic Ghat Drives
+            <h2 className="type-section mt-1.5 text-[#123724]">
+              Waterfalls, Hills &amp; <em className="font-medium italic">Ghat Drives</em>
             </h2>
-            <p className="mt-2 text-base text-[#475569]">
+            <p className="mt-2 max-w-[58ch] text-base leading-relaxed text-[#475569]">
               Ideally positioned off the Talere–Vaibhavwadi Road in Nadhavade for waterfall day
               trips, ridge viewpoints, and tranquil countryside stays.
             </p>
