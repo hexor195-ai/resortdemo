@@ -27,18 +27,18 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
         Skip to content
       </a>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6">
-        <a href="#hero-showcase" className="flex items-center gap-3 text-left">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
+        <a href="#hero-showcase" className="flex min-w-0 items-center gap-3 text-left">
           <img
             src={RESORT_INFO.logoSrc}
             alt="Palm Bliss Resort logo"
-            className="h-12 w-12 rounded-xl border border-[#6bae3b]/40 object-cover shadow-sm"
+            className="h-11 w-11 shrink-0 rounded-xl border border-[#6bae3b]/50 object-cover shadow-sm sm:h-12 sm:w-12"
           />
-          <span>
-            <span className="block font-display text-lg font-bold tracking-tight text-[#123724]">
+          <span className="min-w-0">
+            <span className="block truncate font-display text-base font-bold tracking-tight text-[#123724] sm:text-lg">
               {RESORT_INFO.displayName}
             </span>
-            <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#475569]">
+            <span className="block whitespace-nowrap text-[11px] font-semibold uppercase tracking-wider text-[#475569]">
               Nadhavade · Konkan
             </span>
           </span>
@@ -49,17 +49,17 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-semibold text-[#1e293b] transition hover:text-[#1b4d32]"
+              className="whitespace-nowrap text-sm font-semibold text-[#1e293b] transition hover:text-[#1b4d32]"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex shrink-0 items-center gap-2.5">
           <a
             href={RESORT_INFO.phoneHref}
-            className="hidden min-h-10 items-center gap-1.5 rounded-xl border border-[#123724]/25 bg-white px-3.5 py-2 text-xs font-semibold text-[#123724] transition hover:bg-[#f1f5ec] md:inline-flex"
+            className="hidden min-h-10 items-center gap-1.5 whitespace-nowrap rounded-xl border border-[#123724]/25 bg-white px-3.5 py-2 text-xs font-semibold text-[#123724] transition hover:bg-[#f1f5ec] md:inline-flex"
           >
             <Phone className="h-3.5 w-3.5 text-[#9e3b2b]" aria-hidden="true" />
             <span>{RESORT_INFO.phoneDisplay}</span>
@@ -68,7 +68,7 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
           <button
             type="button"
             onClick={onOpenBooking}
-            className="inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-xl bg-[#123724] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1b4d32] sm:text-sm"
+            className="hidden min-h-10 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-xl bg-[#123724] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1b4d32] sm:inline-flex"
           >
             <MessageCircle className="h-4 w-4 text-[#a3e66f]" aria-hidden="true" />
             <span>Book Stay</span>

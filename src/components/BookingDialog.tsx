@@ -13,10 +13,26 @@ export interface BookingDialogProps {
   onClose: () => void;
 }
 
-function addDaysIso(baseDate: Date, days: number): string {
-  const d = new Date(baseDate);
-  d.setDate(d.getDate() + days);
+function formatLocalIso(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function addDaysIso(baseDateStr: string, days: number): string {
+  const parts = baseDateStr.split('-').map(Number);
+  if (parts.length !== 3 || parts.some((n) => !Number.isFinite(n))) {
+    return todayPlusIso(days);
+  }
+  const d = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2] + days));
   return d.toISOString().slice(0, 10);
+}
+
+function todayPlusIso(days: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return formatLocalIso(d);
 }
 
 export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
@@ -26,9 +42,9 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
   const [roomTierName, setRoomTierName] = useState(
     prefill.roomTierName || ROOM_TIERS[0].name
   );
-  const [checkInDate, setCheckInDate] = useState(() => addDaysIso(new Date(), 3));
-  const [checkOutDate, setCheckOutDate] = useState(() => addDaysIso(new Date(), 5));
-  const [guests, setGuests] = useState(2);
+  const [checkInDate, setCheckInDate] = useState(() => todayPlusIso(3));
+  const [checkOutDate, setCheckOutDate] = useState(() => todayPlusIso(5));
+  const [guestsInput, setGuestsInput] = useState('2');
   const [notes, setNotes] = useState('');
   const [copyStatus, setCopyStatus] = useState('');
 
@@ -92,18 +108,27 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
     };
   }, [onClose]);
 
+  const parsedGuests = Math.min(20, Math.max(1, Number.parseInt(guestsInput, 10) || 1));
+
   const inquiryPayload = {
     guestName,
     guestPhone,
     checkInDate,
     checkOutDate,
-    guests,
+    guests: parsedGuests,
     roomTierName,
     notes,
   };
 
   const whatsappUrl = buildWhatsAppStayUrl(inquiryPayload);
   const messagePreview = formatWhatsAppStayMessage(inquiryPayload);
+
+  const handleCheckInChange = (nextCheckIn: string) => {
+    setCheckInDate(nextCheckIn);
+    if (nextCheckIn && checkOutDate <= nextCheckIn) {
+      setCheckOutDate(addDaysIso(nextCheckIn, 1));
+    }
+  };
 
   const handleCopyMessage = async () => {
     try {
@@ -135,16 +160,16 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
       ref={dialogRef}
       aria-labelledby="booking-dialog-title"
       {...({ closedby: 'any' } as Record<string, string>)}
-      className="m-auto w-[calc(100%-1.5rem)] max-w-2xl rounded-3xl border border-[#123724]/20 bg-[#faf9f5] p-0 text-[#1e293b] shadow-2xl"
+      className="m-auto max-h-[90svh] w-[calc(100%-1.5rem)] max-w-2xl overflow-y-auto rounded-3xl border border-[#123724]/20 bg-[#faf9f5] p-0 text-[#1e293b] shadow-2xl"
     >
       <div className="flex flex-col">
-        <div className="flex items-start justify-between gap-4 border-b border-[#123724]/10 bg-[#123724] px-6 py-5 text-white">
+        <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-[#123724]/10 bg-[#123724] px-6 py-4 text-white">
           <div>
             <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#a3e66f]">
               <BedDouble className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Palm Bliss Resort Front Desk</span>
             </p>
-            <h2 id="booking-dialog-title" className="mt-1 text-2xl font-bold text-white">
+            <h2 id="booking-dialog-title" className="mt-1 text-xl font-bold text-white sm:text-2xl">
               Direct Room Booking Inquiry
             </h2>
           </div>
@@ -152,7 +177,7 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
             type="button"
             onClick={() => dialogRef.current?.close()}
             aria-label="Close booking dialog"
-            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20"
+            className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -217,7 +242,7 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
                 id="booking-checkin"
                 type="date"
                 value={checkInDate}
-                onChange={(e) => setCheckInDate(e.target.value)}
+                onChange={(e) => handleCheckInChange(e.target.value)}
                 className="mt-1.5 w-full rounded-xl border border-[#123724]/20 bg-white px-3.5 py-2.5 text-sm text-[#1e293b]"
               />
             </div>
@@ -229,6 +254,7 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
               <input
                 id="booking-checkout"
                 type="date"
+                min={checkInDate}
                 value={checkOutDate}
                 onChange={(e) => setCheckOutDate(e.target.value)}
                 className="mt-1.5 w-full rounded-xl border border-[#123724]/20 bg-white px-3.5 py-2.5 text-sm text-[#1e293b]"
@@ -244,8 +270,9 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
                 type="number"
                 min={1}
                 max={20}
-                value={guests}
-                onChange={(e) => setGuests(Number(e.target.value) || 1)}
+                value={guestsInput}
+                onChange={(e) => setGuestsInput(e.target.value)}
+                onBlur={() => setGuestsInput(String(parsedGuests))}
                 className="mt-1.5 w-full rounded-xl border border-[#123724]/20 bg-white px-3.5 py-2.5 text-sm text-[#1e293b]"
               />
             </div>

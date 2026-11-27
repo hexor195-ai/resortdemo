@@ -43,7 +43,8 @@ export function GuestVoicesCarousel() {
       let nearest = 0;
       let minDist = Infinity;
       children.forEach((el, idx) => {
-        const dist = Math.abs(el.offsetLeft - track.scrollLeft);
+        const relativeLeft = Math.max(0, el.offsetLeft - track.offsetLeft);
+        const dist = Math.abs(relativeLeft - track.scrollLeft);
         if (dist < minDist) {
           minDist = dist;
           nearest = idx;
@@ -78,7 +79,7 @@ export function GuestVoicesCarousel() {
       track.removeEventListener('scroll', handleScroll);
       track.removeEventListener('scrollend', handleSettled);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-      if (scrollTimerRef.current) window.clearTimeout(scrollTimerRef.current);
+      if (scrollTimerRef.current) globalThis.clearTimeout(scrollTimerRef.current);
     };
   }, []);
 
@@ -89,7 +90,7 @@ export function GuestVoicesCarousel() {
       aria-label="Guest Voices"
       className="border-t border-[#123724]/10 bg-[#123724] py-16 text-white lg:py-20"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-amber-300">
@@ -124,6 +125,7 @@ export function GuestVoicesCarousel() {
           </div>
         </div>
 
+        {/* Single-slide editorial track so every review maps 1-to-1 to a reachable scroll stop */}
         <div
           ref={trackRef}
           tabIndex={0}
@@ -137,23 +139,28 @@ export function GuestVoicesCarousel() {
               role="group"
               aria-roledescription="slide"
               aria-label={`${index + 1} of ${total}`}
-              className="w-full shrink-0 scroll-ml-0 rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-sm md:w-[calc(50%-0.625rem)]"
+              className="w-full shrink-0 rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-sm sm:p-8"
               style={{ scrollSnapAlign: 'start' }}
             >
               <div className="flex items-center justify-between gap-3">
-                <span className="rounded-full bg-amber-400/20 px-3 py-1 text-xs font-bold text-amber-200">
+                <span className="rounded-full bg-[#6bae3b]/25 px-3 py-1 text-xs font-bold text-[#d4f7b5]">
                   {review.topic}
                 </span>
-                <div className="flex items-center gap-0.5 text-amber-300" aria-label={`${review.rating} out of 5 stars`}>
+                <div
+                  className="flex items-center gap-0.5 text-amber-300"
+                  aria-label={`${review.rating} out of 5 stars`}
+                >
                   {Array.from({ length: review.rating }).map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-amber-400" aria-hidden="true" />
                   ))}
                 </div>
               </div>
 
-              <Quote className="mt-4 h-6 w-6 text-amber-300/60" aria-hidden="true" />
-              <p className="mt-2 text-base leading-relaxed text-white/95">“{review.quote}”</p>
-              <p className="mt-4 text-xs font-semibold text-white/75">
+              <Quote className="mt-5 h-7 w-7 text-[#a3e66f]/60" aria-hidden="true" />
+              <p className="mt-2 font-display text-xl leading-relaxed text-white sm:text-2xl">
+                “{review.quote}”
+              </p>
+              <p className="mt-5 text-sm font-semibold text-white/75">
                 {review.guestName} · {review.tripType}
               </p>
             </article>

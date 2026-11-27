@@ -90,6 +90,11 @@ export function FooterAndFloatingBar({ onOpenBooking }: FooterAndFloatingBarProp
             </button>
           </div>
         </div>
+
+        <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 px-4 pt-6 text-xs text-white/60 sm:px-6">
+          © {new Date().getFullYear()} {RESORT_INFO.displayName} · Nadhavade, Sindhudurg,
+          Maharashtra
+        </div>
       </footer>
 
       {/* Mobile Sticky Room Booking & Call Bar */}

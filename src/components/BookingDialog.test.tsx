@@ -70,4 +70,22 @@ describe('BookingDialog', () => {
     expect(dialogAppendSpy).toHaveBeenCalled();
     expect(screen.getByRole('status')).toHaveTextContent(/Unable to copy automatically/i);
   });
+
+  it('allows clearing and retyping guest count and prevents check-out before check-in', async () => {
+    const user = userEvent.setup();
+    render(<BookingDialog open={true} prefill={{}} onClose={vi.fn()} />);
+
+    const guestsInput = screen.getByLabelText(/Guests/i) as HTMLInputElement;
+    await user.clear(guestsInput);
+    expect(guestsInput.value).toBe('');
+    await user.type(guestsInput, '6');
+    expect(guestsInput.value).toBe('6');
+
+    const checkIn = screen.getByLabelText(/Check-in Date/i) as HTMLInputElement;
+    const checkOut = screen.getByLabelText(/Check-out Date/i) as HTMLInputElement;
+    await user.clear(checkIn);
+    await user.type(checkIn, '2026-12-25');
+    expect(checkOut.min).toBe('2026-12-25');
+    expect(checkOut.value >= '2026-12-26').toBe(true);
+  });
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { GuestVoicesCarousel } from './GuestVoicesCarousel';
 
@@ -43,5 +43,27 @@ describe('GuestVoicesCarousel', () => {
 
     await user.click(screen.getByRole('button', { name: /Next review/i }));
     expect(scrollToMock).toHaveBeenCalledWith(expect.objectContaining({ left: 500 }));
+  });
+
+  it('allows selecting and keeping the last review slide active after scrollend settles', async () => {
+    const user = userEvent.setup();
+    render(<GuestVoicesCarousel />);
+    const track = screen.getByRole('group', { name: /Guest review slides/i });
+    const slides = Array.from(track.children) as HTMLElement[];
+
+    // Simulate 1-card-per-view offsets: 0, 800, 1600, 2400
+    slides.forEach((slide, idx) => {
+      Object.defineProperty(slide, 'offsetLeft', { value: idx * 800, configurable: true });
+    });
+
+    const markers = screen.getAllByRole('button', { name: /Go to review/i });
+    await user.click(markers[3]);
+
+    Object.defineProperty(track, 'scrollLeft', { value: 2400, configurable: true });
+    act(() => {
+      track.dispatchEvent(new Event('scrollend'));
+    });
+
+    expect(markers[3]).toHaveAttribute('aria-current', 'true');
   });
 });
