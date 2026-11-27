@@ -141,7 +141,7 @@ export function ResortHero({ onOpenBooking }: ResortHeroProps) {
                       type="button"
                       aria-pressed={isActive}
                       onClick={() => setSlideIndex(idx)}
-                      className={`inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-xl border p-1.5 pr-3 text-left text-xs font-semibold transition ${
+                      className={`inline-flex min-h-10 min-w-0 cursor-pointer items-center gap-2 rounded-xl border p-1.5 pr-2.5 text-left text-[11px] font-semibold transition sm:text-xs ${
                         isActive
                           ? 'border-[#a3e66f] bg-[#6bae3b] text-[#0e2618] shadow-sm'
                           : 'border-white/20 bg-white/10 text-white hover:bg-white/20'
@@ -151,9 +151,9 @@ export function ResortHero({ onOpenBooking }: ResortHeroProps) {
                         src={slide.src}
                         alt=""
                         aria-hidden="true"
-                        className="h-7 w-9 shrink-0 rounded-lg object-cover"
+                        className="h-7 w-8 shrink-0 rounded-lg object-cover sm:w-9"
                       />
-                      <span className="whitespace-nowrap">{slide.shortLabel}</span>
+                      <span className="min-w-0 truncate">{slide.shortLabel}</span>
                     </button>
                   );
                 })}

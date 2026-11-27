@@ -101,7 +101,7 @@ export const RESORT_INFO = {
 export const HERO_SLIDES: HeroSlide[] = [
   {
     id: 'evening',
-    shortLabel: 'Evening Courtyard',
+    shortLabel: 'Dusk Lawn',
     title: 'Konkan Garden Cottages at Dusk',
     caption:
       'Two-story red-laterite cottages, glowing balconies, open-air dining pavilion, and kids play lawn.',
@@ -119,7 +119,7 @@ export const HERO_SLIDES: HeroSlide[] = [
   },
   {
     id: 'walkway',
-    shortLabel: 'Garden Walkway',
+    shortLabel: 'Garden Walk',
     title: 'Lantern-Lit Laterite Strolls',
     caption:
       'Paved courtyard walkways flanked by palms, manicured lawn strips, and ground-floor verandas.',
@@ -128,7 +128,7 @@ export const HERO_SLIDES: HeroSlide[] = [
   },
   {
     id: 'aerial',
-    shortLabel: 'Aerial Campus',
+    shortLabel: 'Aerial View',
     title: 'Surrounded by Konkan Greenery',
     caption:
       'Spacious compound off the Talere–Vaibhavwadi Road with private parking and wooded hills.',
