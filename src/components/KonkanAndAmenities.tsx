@@ -14,11 +14,11 @@ export function KonkanAndAmenities() {
   return (
     <section
       id="konkan-trails"
-      className="border-t border-[#123724]/10 bg-[#f1f5ec]/60 py-16 lg:py-20"
+      className="border-t border-[#123724]/10 bg-[#f1f5ec]/60 py-12 sm:py-16 lg:py-20"
     >
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-12">
         {/* Verified Property Amenities */}
-        <div className="rounded-3xl border border-[#123724]/15 bg-white p-6 shadow-sm lg:col-span-6 lg:p-8">
+        <div className="rounded-3xl border border-[#123724]/15 bg-white p-5 shadow-sm sm:p-6 lg:col-span-6 lg:p-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9e3b2b]">
               Honest Hospitality Details
@@ -28,16 +28,16 @@ export function KonkanAndAmenities() {
             </h2>
           </div>
 
-          <div className="mt-5 grid grid-cols-2 gap-3 rounded-2xl bg-[#123724] p-4 text-white">
+          <div className="mt-5 grid grid-cols-1 gap-3 rounded-2xl bg-[#123724] p-4 text-white min-[360px]:grid-cols-2">
             <div className="flex items-center gap-3">
-              <Clock className="h-5 w-5 text-[#a3e66f]" aria-hidden="true" />
+              <Clock className="h-5 w-5 shrink-0 text-[#a3e66f]" aria-hidden="true" />
               <div>
                 <p className="text-[11px] uppercase tracking-wider text-white/75">Check-in</p>
                 <p className="text-base font-bold">{RESORT_INFO.checkIn}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 border-l border-white/15 pl-4">
-              <Clock className="h-5 w-5 text-[#a3e66f]" aria-hidden="true" />
+            <div className="flex items-center gap-3 border-t border-white/15 pt-3 min-[360px]:border-l min-[360px]:border-t-0 min-[360px]:pl-4 min-[360px]:pt-0">
+              <Clock className="h-5 w-5 shrink-0 text-[#a3e66f]" aria-hidden="true" />
               <div>
                 <p className="text-[11px] uppercase tracking-wider text-white/75">Check-out</p>
                 <p className="text-base font-bold">{RESORT_INFO.checkOut}</p>
@@ -45,8 +45,8 @@ export function KonkanAndAmenities() {
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-2.5 text-center text-xs font-semibold text-[#123724]">
-            <div className="flex flex-col items-center gap-1.5 rounded-xl bg-[#faf9f5] p-3">
+          <div className="mt-5 grid grid-cols-3 gap-2 text-center text-xs font-semibold text-[#123724] sm:gap-2.5">
+            <div className="flex flex-col items-center gap-1.5 rounded-xl bg-[#faf9f5] p-2.5 sm:p-3">
               <Car className="h-5 w-5 text-[#9e3b2b]" aria-hidden="true" />
               <span>Free Parking</span>
             </div>
@@ -98,7 +98,7 @@ export function KonkanAndAmenities() {
                   key={spot.id}
                   className="rounded-2xl border border-[#123724]/12 bg-white p-5 shadow-sm"
                 >
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#123724]/10 px-2.5 py-1 text-xs font-bold text-[#123724]">
                       <MapPin className="h-3.5 w-3.5 text-[#9e3b2b]" aria-hidden="true" />
                       {spot.driveTime}

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Camera, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { GALLERY_PHOTOS, type GalleryPhoto } from '../data/resortData';
+import { assetUrl } from '../utils/assetUrl';
 
 type FilterCategory = 'all' | GalleryPhoto['category'];
 
@@ -15,6 +16,7 @@ export function PhotoGallerySection() {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   const visiblePhotos =
     activeFilter === 'all'
@@ -83,7 +85,7 @@ export function PhotoGallerySection() {
   };
 
   return (
-    <section id="gallery" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
+    <section id="gallery" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
       <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
         <div>
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[#9e3b2b]">
@@ -111,7 +113,7 @@ export function PhotoGallerySection() {
                   setActiveFilter(filter.id);
                   setLightboxIndex(null);
                 }}
-                className={`min-h-10 cursor-pointer rounded-full px-4 py-2 text-xs font-bold transition sm:text-sm ${
+                className={`min-h-11 cursor-pointer rounded-full px-4 py-2 text-xs font-bold transition sm:text-sm ${
                   isSelected
                     ? 'bg-[#123724] text-white shadow-sm'
                     : 'border border-[#123724]/20 bg-white text-[#1e293b] hover:bg-[#f1f5ec]'
@@ -138,7 +140,7 @@ export function PhotoGallerySection() {
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={photo.src}
+                  src={assetUrl(photo.src)}
                   alt={photo.alt}
                   loading="lazy"
                   className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
@@ -158,13 +160,13 @@ export function PhotoGallerySection() {
         ref={dialogRef}
         aria-labelledby="lightbox-photo-title"
         {...({ closedby: 'any' } as Record<string, string>)}
-        className="m-auto max-h-[92svh] w-[calc(100%-1.5rem)] max-w-4xl overflow-hidden rounded-3xl border border-white/20 bg-[#0f2b1c] p-0 text-white shadow-2xl"
+        className="m-auto max-h-[92dvh] w-[calc(100%-1rem)] max-w-4xl overflow-hidden rounded-3xl border border-white/20 bg-[#0f2b1c] p-0 text-white shadow-2xl sm:w-[calc(100%-1.5rem)]"
       >
         {activePhoto && (
           <div className="flex flex-col">
-            <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3.5">
-              <div>
-                <h3 id="lightbox-photo-title" className="text-lg font-bold text-white">
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:gap-4 sm:px-5 sm:py-3.5">
+              <div className="min-w-0">
+                <h3 id="lightbox-photo-title" className="text-base font-bold text-white sm:text-lg">
                   {activePhoto.title}
                 </h3>
                 <p className="text-xs text-white/75">{activePhoto.caption}</p>
@@ -173,17 +175,30 @@ export function PhotoGallerySection() {
                 type="button"
                 onClick={() => dialogRef.current?.close()}
                 aria-label="Close photo preview"
-                className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20"
+                className="inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20"
               >
                 <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
 
-            <div className="relative bg-black/40">
+            <div
+              className="relative bg-black/40"
+              onTouchStart={(e) => {
+                touchStartX.current = e.changedTouches[0]?.clientX ?? null;
+              }}
+              onTouchEnd={(e) => {
+                if (touchStartX.current === null || visiblePhotos.length <= 1) return;
+                const deltaX = (e.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
+                touchStartX.current = null;
+                if (Math.abs(deltaX) >= 40) {
+                  stepLightbox(deltaX < 0 ? 1 : -1);
+                }
+              }}
+            >
               <img
-                src={activePhoto.src}
+                src={assetUrl(activePhoto.src)}
                 alt={activePhoto.alt}
-                className="max-h-[68svh] w-full object-contain"
+                className="max-h-[65dvh] w-full object-contain sm:max-h-[68dvh]"
               />
               {visiblePhotos.length > 1 && (
                 <div className="pointer-events-none absolute inset-x-3 top-1/2 flex -translate-y-1/2 justify-between">

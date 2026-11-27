@@ -18,13 +18,46 @@
 }
 
 @layer base {
+  :root {
+    --target-size: 24px;
+  }
+
+  @media (pointer: coarse) {
+    :root {
+      --target-size: 44px;
+    }
+  }
+
   html {
     font-family: var(--font-sans);
     background-color: var(--color-sand);
     color: var(--color-ink);
     line-height: 1.5;
     scroll-behavior: smooth;
+    scroll-padding-top: 5.25rem;
+    scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
     -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-wrap: break-word;
+  }
+
+  img,
+  video {
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+
+  :where(a, code) {
+    overflow-wrap: anywhere;
+  }
+
+  @media (pointer: coarse) {
+    :where(button, select, textarea, input:not([type="checkbox"], [type="radio"]), [role="button"], nav a) {
+      min-block-size: var(--target-size);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -40,7 +73,7 @@
     text-wrap: balance;
   }
 
-  p {
+  p, li {
     text-wrap: pretty;
   }
 
@@ -52,7 +85,7 @@
 
 /* Responsive editorial display scale (clamp keeps max <= 2.5x min per WCAG 1.4.4) */
 .type-hero {
-  font-size: clamp(2.5rem, 1.5rem + 3.2vw, 4.5rem);
+  font-size: clamp(2.125rem, 1.35rem + 3.2vw, 4.5rem);
   line-height: 1.05;
   font-weight: 600;
   letter-spacing: -0.02em;

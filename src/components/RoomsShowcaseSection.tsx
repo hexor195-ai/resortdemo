@@ -1,5 +1,6 @@
 import { Check, MessageCircle, Sparkles } from 'lucide-react';
 import { RESORT_INFO, ROOM_TIERS } from '../data/resortData';
+import { assetUrl } from '../utils/assetUrl';
 
 export interface RoomsShowcaseSectionProps {
   onBookRoom: (roomTierName: string) => void;
@@ -7,7 +8,7 @@ export interface RoomsShowcaseSectionProps {
 
 export function RoomsShowcaseSection({ onBookRoom }: RoomsShowcaseSectionProps) {
   return (
-    <section id="rooms" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
+    <section id="rooms" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9e3b2b]">
@@ -36,7 +37,7 @@ export function RoomsShowcaseSection({ onBookRoom }: RoomsShowcaseSectionProps) 
           >
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#f1f5ec]">
               <img
-                src={tier.imageSrc}
+                src={assetUrl(tier.imageSrc)}
                 alt={tier.imageAlt}
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -46,7 +47,7 @@ export function RoomsShowcaseSection({ onBookRoom }: RoomsShowcaseSectionProps) 
               </span>
             </div>
 
-            <div className="flex flex-1 flex-col justify-between p-6">
+            <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a18]">
                   {tier.bedding} · {tier.capacity}
@@ -54,7 +55,7 @@ export function RoomsShowcaseSection({ onBookRoom }: RoomsShowcaseSectionProps) 
                 <h3 className="font-display mt-1.5 text-2xl font-semibold text-[#123724]">{tier.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#475569]">{tier.description}</p>
 
-                <ul className="mt-4 grid grid-cols-2 gap-2">
+                <ul className="mt-4 grid grid-cols-1 gap-2 min-[380px]:grid-cols-2">
                   {tier.highlights.map((item) => (
                     <li
                       key={item}

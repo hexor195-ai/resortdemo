@@ -1,19 +1,20 @@
 import { Check, Clock, ExternalLink, MapPin, Star, UtensilsCrossed } from 'lucide-react';
 import { DINING_HIGHLIGHTS, MUNCHING_BITES_INFO } from '../data/resortData';
+import { assetUrl } from '../utils/assetUrl';
 
 export function MunchingBitesSection() {
   return (
     <section
       id="munching-bites"
-      className="border-y border-[#123724]/12 bg-[#f1f5ec]/85 py-16 lg:py-20"
+      className="border-y border-[#123724]/12 bg-[#f1f5ec]/85 py-12 sm:py-16 lg:py-20"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/* Restaurant Header & Official Brand Card */}
-        <div className="grid items-center gap-8 rounded-3xl border border-[#123724]/15 bg-white p-6 shadow-sm lg:grid-cols-12 lg:p-8">
+        <div className="grid items-center gap-6 rounded-3xl border border-[#123724]/15 bg-white p-5 shadow-sm sm:gap-8 sm:p-6 lg:grid-cols-12 lg:p-8">
           <div className="lg:col-span-7">
             <div className="flex flex-wrap items-center gap-3">
               <img
-                src={MUNCHING_BITES_INFO.logoSrc}
+                src={assetUrl(MUNCHING_BITES_INFO.logoSrc)}
                 alt="Konkan's Munching Route restaurant crest"
                 className="h-14 w-14 rounded-2xl border border-[#123724]/15 object-cover shadow-sm"
               />
@@ -35,7 +36,7 @@ export function MunchingBitesSection() {
               {MUNCHING_BITES_INFO.summary}
             </p>
 
-            <div className="mt-5 flex flex-wrap items-center gap-4 text-sm font-semibold text-[#1e293b]">
+            <div className="mt-5 flex flex-wrap items-center gap-2.5 text-xs font-semibold text-[#1e293b] sm:gap-4 sm:text-sm">
               <span className="inline-flex items-center gap-1.5 rounded-xl bg-[#faf9f5] px-3 py-2">
                 <Star className="h-4 w-4 fill-amber-400 text-amber-500" aria-hidden="true" />
                 {MUNCHING_BITES_INFO.rating} ({MUNCHING_BITES_INFO.ratingCount} Justdial Ratings)
@@ -64,7 +65,7 @@ export function MunchingBitesSection() {
                 href={MUNCHING_BITES_INFO.justdialUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-[#123724]/25 bg-[#faf9f5] px-4 py-2 text-xs font-bold text-[#123724] transition hover:bg-[#e7efe0]"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#123724]/25 bg-[#faf9f5] px-4 py-2.5 text-xs font-bold text-[#123724] transition hover:bg-[#e7efe0] sm:w-auto"
               >
                 <span>View Munching Bites on Justdial</span>
                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -74,7 +75,7 @@ export function MunchingBitesSection() {
 
           <div className="overflow-hidden rounded-2xl bg-[#123724] lg:col-span-5">
             <img
-              src="/images/gazebo-night.jpg"
+              src={assetUrl('/images/gazebo-night.jpg')}
               alt="Munching Bites open-air dining gazebo illuminated at night at Palm Bliss Resort"
               loading="lazy"
               className="aspect-[4/3] h-full w-full object-cover"
@@ -91,7 +92,7 @@ export function MunchingBitesSection() {
             >
               <div className="aspect-[4/3] w-full overflow-hidden bg-[#f1f5ec]">
                 <img
-                  src={dish.imageSrc}
+                  src={assetUrl(dish.imageSrc)}
                   alt={dish.imageAlt}
                   loading="lazy"
                   className="h-full w-full object-cover"

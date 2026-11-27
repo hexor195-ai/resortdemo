@@ -88,7 +88,7 @@ export function GuestVoicesCarousel() {
       id="guest-voices"
       aria-roledescription="carousel"
       aria-label="Guest Voices"
-      className="border-t border-[#123724]/10 bg-[#123724] py-16 text-white lg:py-20"
+      className="border-t border-[#123724]/10 bg-[#123724] py-12 text-white sm:py-16 lg:py-20"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
@@ -156,11 +156,11 @@ export function GuestVoicesCarousel() {
                 </div>
               </div>
 
-              <Quote className="mt-5 h-7 w-7 text-[#a3e66f]/60" aria-hidden="true" />
-              <p className="mt-2 font-display text-xl italic leading-relaxed text-white sm:text-2xl">
+              <Quote className="mt-4 h-6 w-6 text-[#a3e66f]/60 sm:mt-5 sm:h-7 sm:w-7" aria-hidden="true" />
+              <p className="mt-2 font-display text-lg italic leading-relaxed text-white sm:text-2xl">
                 “{review.quote}”
               </p>
-              <p className="mt-5 text-sm font-semibold text-white/75">
+              <p className="mt-4 text-sm font-semibold text-white/75 sm:mt-5">
                 {review.guestName} · {review.tripType}
               </p>
             </article>
@@ -171,7 +171,7 @@ export function GuestVoicesCarousel() {
           {liveStatus}
         </p>
 
-        <nav aria-label="Choose a review" className="mt-6 flex items-center justify-center gap-2">
+        <nav aria-label="Choose a review" className="mt-5 flex flex-wrap items-center justify-center gap-1 sm:mt-6 sm:gap-2">
           {GUEST_REVIEWS.map((review, index) => {
             const isActive = index === activeIndex;
             return (
@@ -181,10 +181,15 @@ export function GuestVoicesCarousel() {
                 aria-label={`Go to review ${index + 1}`}
                 aria-current={isActive ? 'true' : undefined}
                 onClick={() => scrollToSlide(index)}
-                className={`min-h-6 min-w-6 cursor-pointer rounded-full p-1 transition ${
-                  isActive ? 'w-9 bg-[#6bae3b] ring-2 ring-white' : 'w-6 bg-white/30 hover:bg-white/55'
-                }`}
-              />
+                className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full p-2"
+              >
+                <span
+                  aria-hidden="true"
+                  className={`block h-2.5 rounded-full transition-all ${
+                    isActive ? 'w-7 bg-[#6bae3b] ring-2 ring-white' : 'w-2.5 bg-white/35 hover:bg-white/60'
+                  }`}
+                />
+              </button>
             );
           })}
         </nav>

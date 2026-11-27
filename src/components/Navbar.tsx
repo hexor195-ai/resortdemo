@@ -1,6 +1,7 @@
 import { Menu, MessageCircle, Phone, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { RESORT_INFO } from '../data/resortData';
+import { assetUrl } from '../utils/assetUrl';
 
 export interface NavbarProps {
   onOpenBooking: () => void;
@@ -25,6 +26,17 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
+
   return (
     <header className={`sticky top-0 z-40 border-b border-[#123724]/15 bg-[#faf9f5]/95 backdrop-blur-md transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-xs'}`}>
       <div
@@ -38,16 +50,16 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
         Skip to content
       </a>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-2.5 sm:gap-3 sm:px-6">
         <a
           href="#hero-showcase"
-          className="group flex min-w-0 items-center gap-3.5 text-left"
+          className="group flex min-w-0 items-center gap-2.5 text-left sm:gap-3.5"
         >
           <span className="shrink-0 rounded-2xl bg-white p-0.5 shadow-md ring-2 ring-[#6bae3b]/75 transition group-hover:ring-[#123724]">
             <img
-              src={RESORT_INFO.logoSrc}
+              src={assetUrl(RESORT_INFO.logoSrc)}
               alt="Palm Bliss Resort logo"
-              className="h-[50px] w-[50px] rounded-[13px] object-cover sm:h-14 sm:w-14"
+              className="h-11 w-11 rounded-[12px] object-cover sm:h-14 sm:w-14 sm:rounded-[13px]"
             />
           </span>
           <span className="min-w-0">
@@ -56,10 +68,10 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
             </span>
             <span className="mt-0.5 flex items-center gap-1.5">
               <span
-                className="h-[1.5px] w-3.5 shrink-0 rounded-full bg-[#6bae3b] sm:w-4"
+                className="h-[1.5px] w-3 shrink-0 rounded-full bg-[#6bae3b] sm:w-4"
                 aria-hidden="true"
               />
-              <span className="whitespace-nowrap text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-[#8a5a18]">
+              <span className="truncate text-[0.625rem] font-medium uppercase tracking-[0.12em] text-[#8a5a18] sm:text-[0.6875rem] sm:tracking-[0.18em]">
                 RESORT · NADHAVADE
               </span>
               <span
@@ -105,7 +117,7 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-[#123724]/20 bg-white text-[#123724] lg:hidden"
+            className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-[#123724]/20 bg-white text-[#123724] lg:hidden"
           >
             {mobileMenuOpen ? (
               <X className="h-5 w-5" aria-hidden="true" />
@@ -119,21 +131,43 @@ export function Navbar({ onOpenBooking }: NavbarProps) {
       {mobileMenuOpen && (
         <nav
           aria-label="Mobile"
-          className="border-t border-[#123724]/10 bg-[#faf9f5] px-4 py-3 lg:hidden"
+          className="max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-[#123724]/10 bg-[#faf9f5] px-4 py-3 lg:hidden"
         >
-          <ul className="flex flex-col gap-1.5">
+          <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-sm font-semibold text-[#1e293b] hover:bg-[#f1f5ec]"
+                  className="flex min-h-11 items-center rounded-xl px-3.5 py-2.5 text-base font-semibold text-[#1e293b] transition hover:bg-[#f1f5ec]"
                 >
                   {item.label}
                 </a>
               </li>
             ))}
           </ul>
+
+          <div className="mt-3 grid grid-cols-2 gap-2 border-t border-[#123724]/10 pt-3">
+            <a
+              href={RESORT_INFO.phoneHref}
+              onClick={() => setMobileMenuOpen(false)}
+              className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-[#123724]/25 bg-white px-3 py-2 text-sm font-semibold text-[#123724]"
+            >
+              <Phone className="h-4 w-4 text-[#9e3b2b]" aria-hidden="true" />
+              <span>Call Desk</span>
+            </a>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenBooking();
+              }}
+              className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-[#123724] px-3 py-2 text-sm font-semibold text-white"
+            >
+              <MessageCircle className="h-4 w-4 text-[#a3e66f]" aria-hidden="true" />
+              <span>Book Stay</span>
+            </button>
+          </div>
         </nav>
       )}
     </header>

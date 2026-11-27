@@ -1,5 +1,6 @@
 import { ExternalLink, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { MUNCHING_BITES_INFO, RESORT_INFO } from '../data/resortData';
+import { assetUrl } from '../utils/assetUrl';
 
 export interface FooterAndFloatingBarProps {
   onOpenBooking: () => void;
@@ -8,12 +9,12 @@ export interface FooterAndFloatingBarProps {
 export function FooterAndFloatingBar({ onOpenBooking }: FooterAndFloatingBarProps) {
   return (
     <>
-      <footer className="border-t border-[#123724]/15 bg-[#0f2b1c] pb-24 pt-14 text-white lg:pb-14">
+      <footer className="border-t border-[#123724]/15 bg-[#0f2b1c] pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] pt-12 text-white sm:pt-14 lg:pb-14">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div className="flex items-center gap-3.5">
               <img
-                src={RESORT_INFO.logoSrc}
+                src={assetUrl(RESORT_INFO.logoSrc)}
                 alt="Palm Bliss Resort logo"
                 className="h-14 w-14 rounded-2xl border border-[#6bae3b]/60 object-cover shadow"
               />
@@ -46,7 +47,7 @@ export function FooterAndFloatingBar({ onOpenBooking }: FooterAndFloatingBarProp
             <div className="mt-3 flex flex-col gap-2.5">
               <a
                 href={RESORT_INFO.phoneHref}
-                className="inline-flex min-h-10 items-center gap-2 text-base font-bold text-white hover:text-[#a3e66f]"
+                className="inline-flex min-h-11 items-center gap-2 text-base font-bold text-white hover:text-[#a3e66f]"
               >
                 <Phone className="h-4 w-4 text-[#a3e66f]" aria-hidden="true" />
                 <span>{RESORT_INFO.phoneDisplay}</span>
@@ -55,7 +56,7 @@ export function FooterAndFloatingBar({ onOpenBooking }: FooterAndFloatingBarProp
                 href={RESORT_INFO.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-white/80 underline-offset-4 hover:text-white hover:underline"
+                className="inline-flex min-h-11 items-center gap-1.5 text-sm text-white/80 underline-offset-4 hover:text-white hover:underline"
               >
                 <span>Open Resort on Google Maps</span>
                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -64,7 +65,7 @@ export function FooterAndFloatingBar({ onOpenBooking }: FooterAndFloatingBarProp
                 href={MUNCHING_BITES_INFO.justdialUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-white/80 underline-offset-4 hover:text-white hover:underline"
+                className="inline-flex min-h-11 items-center gap-1.5 text-sm text-white/80 underline-offset-4 hover:text-white hover:underline"
               >
                 <span>Munching Bites Dining Profile ({MUNCHING_BITES_INFO.hours})</span>
                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -98,7 +99,7 @@ export function FooterAndFloatingBar({ onOpenBooking }: FooterAndFloatingBarProp
       </footer>
 
       {/* Mobile Sticky Room Booking & Call Bar */}
-      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-2 border-t border-[#123724]/15 bg-[#faf9f5]/95 p-3 backdrop-blur-md lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-2 border-t border-[#123724]/15 bg-[#faf9f5]/95 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] backdrop-blur-md lg:hidden">
         <a
           href={RESORT_INFO.phoneHref}
           className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-[#123724]/30 bg-white px-3 py-2 text-sm font-bold text-[#123724]"
