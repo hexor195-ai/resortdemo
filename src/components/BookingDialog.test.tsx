@@ -14,20 +14,14 @@ describe('BookingDialog', () => {
     });
   });
 
-  it('opens native modal dialog without redundant ARIA modal attributes and builds live WhatsApp link', async () => {
+  it('renders room-stay booking only (no dining booking tab) and builds live WhatsApp link', async () => {
     const user = userEvent.setup();
-    const onClose = vi.fn();
 
     render(
       <BookingDialog
         open={true}
-        prefill={{
-          type: 'stay',
-          roomTierName: 'Deluxe Room (Garden View)',
-          nights: 2,
-          estimatedDirectRate: 2392,
-        }}
-        onClose={onClose}
+        prefill={{ roomTierName: 'Deluxe Room (Garden View)' }}
+        onClose={vi.fn()}
       />
     );
 
@@ -36,45 +30,22 @@ describe('BookingDialog', () => {
     expect(dialog).not.toHaveAttribute('role');
     expect(dialog).not.toHaveAttribute('aria-modal');
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
-    expect(screen.getByRole('heading', { level: 2, name: /Direct WhatsApp & Call Inquiry/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 2, name: /Direct Room Booking Inquiry/i })
+    ).toBeInTheDocument();
 
-    const nameInput = screen.getByLabelText(/Your Name/i);
-    await user.type(nameInput, 'Rohan & Meera');
+    // No dining booking tab or dining inputs
+    expect(screen.queryByRole('button', { name: /Restaurant Table/i })).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/Dining Date/i)).not.toBeInTheDocument();
+
+    await user.type(screen.getByLabelText(/Your Name/i), 'Rohan & Meera');
 
     const waLink = screen.getByRole('link', { name: /Send on WhatsApp/i });
     expect(waLink.getAttribute('href')).toContain('https://wa.me/919404596257?text=');
     expect(decodeURIComponent(waLink.getAttribute('href') || '')).toContain('Rohan & Meera');
-    expect(decodeURIComponent(waLink.getAttribute('href') || '')).toContain('2,392');
-
-    await user.selectOptions(screen.getByLabelText(/Room Category/i), 'Premium Room (Garden View)');
-    expect(decodeURIComponent(waLink.getAttribute('href') || '')).not.toContain('2,392');
-
-    await user.click(screen.getByRole('button', { name: /Restaurant Table/i }));
-    expect(screen.getByLabelText(/Dining Date/i)).toBeInTheDocument();
   });
 
-  it('copies inquiry text and announces confirmation in polite status region', async () => {
-    const user = userEvent.setup();
-    const writeText = vi.fn().mockResolvedValue(undefined);
-    Object.defineProperty(navigator, 'clipboard', {
-      value: { writeText },
-      configurable: true,
-    });
-
-    render(
-      <BookingDialog
-        open={true}
-        prefill={{ type: 'dining' }}
-        onClose={vi.fn()}
-      />
-    );
-
-    await user.click(screen.getByRole('button', { name: /Copy Inquiry Text/i }));
-    expect(writeText).toHaveBeenCalled();
-    expect(screen.getByRole('status')).toHaveTextContent(/Inquiry copied to clipboard/i);
-  });
-
-  it('appends fallback textarea inside dialog and reports error if execCommand returns false', async () => {
+  it('appends clipboard fallback textarea inside dialog and checks execCommand result', async () => {
     const user = userEvent.setup();
     Object.defineProperty(navigator, 'clipboard', {
       value: undefined,
@@ -87,7 +58,7 @@ describe('BookingDialog', () => {
     });
     const bodyAppendSpy = vi.spyOn(document.body, 'appendChild');
 
-    render(<BookingDialog open={true} prefill={{ type: 'dining' }} onClose={vi.fn()} />);
+    render(<BookingDialog open={true} prefill={{}} onClose={vi.fn()} />);
 
     const dialog = document.querySelector('dialog')!;
     const dialogAppendSpy = vi.spyOn(dialog, 'appendChild');

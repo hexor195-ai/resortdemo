@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --color-canopy: #1b3b2b;
-  --color-canopy-dark: #11261b;
+  /* Palette anchored to Palm Bliss Resort logo (#6bae3b palm green, #123724 deep botanical, #9e3b2b Konkan laterite) */
+  --color-palm: #6bae3b;
+  --color-canopy: #123724;
+  --color-canopy-mid: #1b4d32;
   --color-laterite: #9e3b2b;
   --color-laterite-dark: #7d2c1f;
-  --color-sand: #faf7f2;
-  --color-sand-warm: #f2ece1;
-  --color-brass: #b47b2b;
+  --color-sand: #faf9f5;
+  --color-sage-tint: #f1f5ec;
+  --color-bronze: #8a5a18;
   --color-ink: #1e293b;
   --color-ink-muted: #475569;
   --font-display: 'Playfair Display', Georgia, Cambria, serif;
@@ -50,13 +52,13 @@
   white-space: nowrap !important;
 }
 
-/* Native <dialog> scroll containment per modern-web-guidance */
+/* Native <dialog> scroll containment */
 dialog:modal {
   overscroll-behavior: contain;
 }
 
 dialog::backdrop {
-  background: rgba(17, 38, 27, 0.58);
+  background: rgba(18, 55, 36, 0.62);
   backdrop-filter: blur(4px);
   overflow: hidden;
   overscroll-behavior: contain;

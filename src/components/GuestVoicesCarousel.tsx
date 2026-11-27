@@ -87,7 +87,7 @@ export function GuestVoicesCarousel() {
       id="guest-voices"
       aria-roledescription="carousel"
       aria-label="Guest Voices"
-      className="border-t border-[#1b3b2b]/10 bg-[#1b3b2b] py-16 text-white lg:py-20"
+      className="border-t border-[#123724]/10 bg-[#123724] py-16 text-white lg:py-20"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
@@ -175,7 +175,7 @@ export function GuestVoicesCarousel() {
                 aria-current={isActive ? 'true' : undefined}
                 onClick={() => scrollToSlide(index)}
                 className={`min-h-6 min-w-6 cursor-pointer rounded-full p-1 transition ${
-                  isActive ? 'w-9 bg-amber-400 ring-2 ring-white' : 'w-6 bg-white/30 hover:bg-white/55'
+                  isActive ? 'w-9 bg-[#6bae3b] ring-2 ring-white' : 'w-6 bg-white/30 hover:bg-white/55'
                 }`}
               />
             );
