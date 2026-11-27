@@ -57,9 +57,10 @@ export function GuestVoicesCarousel() {
         setActiveIndex(getNearestSlideIndex());
       });
 
-      if (!('onscrollend' in window)) {
-        if (scrollTimerRef.current) window.clearTimeout(scrollTimerRef.current);
-        scrollTimerRef.current = window.setTimeout(handleSettled, 150);
+      const supportsScrollEnd = 'onscrollend' in Element.prototype;
+      if (!supportsScrollEnd) {
+        if (scrollTimerRef.current) globalThis.clearTimeout(scrollTimerRef.current);
+        scrollTimerRef.current = globalThis.setTimeout(handleSettled, 150);
       }
     };
 
