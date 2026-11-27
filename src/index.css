@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --color-canopy: #1b3b2b;
+  --color-canopy-dark: #11261b;
+  --color-laterite: #9e3b2b;
+  --color-laterite-dark: #7d2c1f;
+  --color-sand: #faf7f2;
+  --color-sand-warm: #f2ece1;
+  --color-brass: #b47b2b;
+  --color-ink: #1e293b;
+  --color-ink-muted: #475569;
+  --font-display: 'Playfair Display', Georgia, Cambria, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-sand);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+
+  :where(a:any-link, button, input, select, textarea):focus-visible {
+    outline: 3px solid var(--color-laterite);
+    outline-offset: 3px;
+  }
+}
+
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Native <dialog> scroll containment per modern-web-guidance */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  background: rgba(17, 38, 27, 0.58);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Accessible CSS scroll-snap carousel track */
+.carousel-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  touch-action: manipulation;
+  scrollbar-width: none;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .carousel-track {
+    scroll-behavior: smooth;
+  }
+}
