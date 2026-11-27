@@ -75,7 +75,11 @@ describe('Resort3DHero', () => {
       />
     );
 
-    expect(screen.getByText(/Interactive 3D preview unavailable/i)).toBeInTheDocument();
+    const fallbackText = screen.getByText(/Interactive 3D preview unavailable/i);
+    expect(fallbackText).toBeInTheDocument();
+    expect(fallbackText.closest('.absolute.inset-0')).toBeNull();
+    expect(screen.getByRole('button', { name: /Zoom in 3D view/i })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Zoom out 3D view/i })).toBeDisabled();
     await user.click(screen.getByRole('button', { name: /Book Direct on WhatsApp/i }));
     expect(onOpenBooking).toHaveBeenCalledWith('stay', 'Deluxe Room (Garden View)');
   });

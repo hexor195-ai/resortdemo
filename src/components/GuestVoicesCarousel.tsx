@@ -22,7 +22,15 @@ export function GuestVoicesCarousel() {
     if (!track) return;
     const child = track.children[wrapped] as HTMLElement | undefined;
     if (!child) return;
-    track.scrollTo({ left: child.offsetLeft, behavior: 'smooth' });
+    const targetLeft = Math.max(0, child.offsetLeft - track.offsetLeft);
+    if (Math.abs(targetLeft - track.scrollLeft) < 2) {
+      pendingTargetRef.current = null;
+      return;
+    }
+    track.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    globalThis.setTimeout(() => {
+      pendingTargetRef.current = null;
+    }, 650);
   };
 
   useEffect(() => {

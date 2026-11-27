@@ -54,7 +54,7 @@ export function DiningShowcase({ onLocateGazeboIn3D, onReserveTable }: DiningSho
             >
               <div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#b47b2b]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#8a5a18]">
                     {dish.category}
                   </span>
                   <Flame className="h-4 w-4 text-[#9e3b2b]" aria-hidden="true" />

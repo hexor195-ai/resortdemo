@@ -41,7 +41,8 @@ export function RateComparisonSection({
     directDiscountPct
   );
 
-  const formatINR = (amount: number) => `₹${amount.toLocaleString('en-IN')}`;
+  const formatINR = (amount: number) =>
+    `${amount < 0 ? '-' : ''}₹${Math.abs(amount).toLocaleString('en-IN')}`;
 
   return (
     <section id="save-ota" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
@@ -416,19 +417,27 @@ export function RateComparisonSection({
               </p>
             </div>
 
-            <div className="rounded-2xl bg-[#1b3b2b] p-5 text-white sm:col-span-2">
+            <div
+              className={`rounded-2xl p-5 text-white sm:col-span-2 ${
+                ownerRoi.monthlyNetGain < 0 ? 'bg-[#7d2c1f]' : 'bg-[#1b3b2b]'
+              }`}
+            >
               <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-amber-300">
-                    Extra Profit Retained vs. OTA Payouts
+                    {ownerRoi.monthlyNetGain < 0
+                      ? 'Net Revenue Impact vs. OTA Payouts — Direct discount exceeds OTA commission'
+                      : 'Extra Profit Retained vs. OTA Payouts'}
                   </p>
                   <p className="mt-1 text-3xl font-bold text-white">
-                    {ownerRoi.monthlyNetGain >= 0 ? '+' : ''}
+                    {ownerRoi.monthlyNetGain > 0 ? '+' : ''}
                     {formatINR(ownerRoi.monthlyNetGain)}
                     <span className="text-sm font-normal text-white/80"> / month</span>
                   </p>
                   <p className="mt-1 text-sm text-white/85">
-                    Annualized net gain:{' '}
+                    {ownerRoi.monthlyNetGain < 0
+                      ? 'Annualized net difference:'
+                      : 'Annualized net gain:'}{' '}
                     <strong className="text-amber-300">
                       {formatINR(ownerRoi.annualNetGain)}/year
                     </strong>{' '}

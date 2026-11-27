@@ -82,7 +82,7 @@ export function KonkanAndAmenities({ onLocateCourtyardIn3D }: KonkanAndAmenities
           </ul>
 
           <div className="mt-5 flex items-start gap-2.5 rounded-2xl border border-amber-900/15 bg-[#faf7f2] p-3.5 text-xs text-[#475569]">
-            <Info className="mt-0.5 h-4 w-4 shrink-0 text-[#b47b2b]" aria-hidden="true" />
+            <Info className="mt-0.5 h-4 w-4 shrink-0 text-[#8a5a18]" aria-hidden="true" />
             <p>
               <strong>Property transparency:</strong> Palm Bliss Resort is a peaceful garden &amp;
               dining retreat ({RESORT_INFO.excludedAmenities.join(' · ')}).
@@ -115,7 +115,7 @@ export function KonkanAndAmenities({ onLocateCourtyardIn3D }: KonkanAndAmenities
                       <MapPin className="h-3.5 w-3.5 text-[#9e3b2b]" aria-hidden="true" />
                       {spot.driveTime}
                     </span>
-                    <span className="text-xs font-semibold text-[#b47b2b]">{spot.vibe}</span>
+                    <span className="text-xs font-semibold text-[#8a5a18]">{spot.vibe}</span>
                   </div>
                   <h3 className="mt-3 text-lg font-bold text-[#1b3b2b]">{spot.name}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-[#475569]">

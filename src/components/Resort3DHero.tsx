@@ -100,24 +100,6 @@ export function Resort3DHero({
         aria-hidden={webglUnavailable ? 'true' : undefined}
       />
 
-      {/* WebGL Graceful Fallback */}
-      {webglUnavailable && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#1b3b2b] via-[#274b38] to-[#5f2a20] p-6">
-          <div className="max-w-md rounded-2xl border border-white/20 bg-black/35 p-6 text-center backdrop-blur-md">
-            <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">
-              Konkan Architectural Preview
-            </p>
-            <p className="mt-2 text-lg font-medium text-white">
-              Interactive 3D preview unavailable on this device
-            </p>
-            <p className="mt-1 text-sm text-white/80">
-              Explore our two-story red-laterite cottages, open-air dining gazebo, and direct
-              booking rates below.
-            </p>
-          </div>
-        </div>
-      )}
-
       {/* Subtle edge vignette for crisp HUD contrast */}
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/75"
@@ -166,34 +148,55 @@ export function Resort3DHero({
           <div className="flex items-center gap-1 border-l border-white/20 pl-2">
             <button
               type="button"
+              disabled={webglUnavailable}
               onClick={() => controllerRef.current?.zoomBy(0.85)}
               aria-label="Zoom in 3D view"
-              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20"
+              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Plus className="h-4 w-4" aria-hidden="true" />
             </button>
             <button
               type="button"
+              disabled={webglUnavailable}
               onClick={() => controllerRef.current?.zoomBy(1.18)}
               aria-label="Zoom out 3D view"
-              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20"
+              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Minus className="h-4 w-4" aria-hidden="true" />
             </button>
             <button
               type="button"
+              disabled={webglUnavailable}
               onClick={() => {
                 onSelectHotspot('overview');
                 controllerRef.current?.resetView();
               }}
               aria-label="Reset 3D camera"
-              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20"
+              className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <RotateCcw className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </div>
       </div>
+
+      {/* WebGL Graceful In-Flow Fallback */}
+      {webglUnavailable && (
+        <div className="relative z-10 mx-auto my-6 max-w-7xl px-4 sm:px-6">
+          <div className="mx-auto max-w-xl rounded-2xl border border-white/20 bg-gradient-to-br from-[#1b3b2b]/95 via-[#274b38]/95 to-[#5f2a20]/95 p-6 text-center shadow-xl backdrop-blur-md">
+            <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">
+              Konkan Architectural Preview
+            </p>
+            <p className="mt-2 text-lg font-medium text-white">
+              Interactive 3D preview unavailable on this device
+            </p>
+            <p className="mt-1 text-sm text-white/80">
+              Explore our two-story red-laterite cottages, open-air dining gazebo, and direct
+              booking rates below.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Bottom Interactive Hotspot Bar & Active Spot Details */}
       <div className="relative z-10 mx-auto mt-14 flex max-w-7xl flex-col gap-3 px-4 pb-6 sm:mt-24 sm:px-6 lg:mt-36">

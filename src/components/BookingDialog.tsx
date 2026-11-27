@@ -42,6 +42,9 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
   const [diningTime, setDiningTime] = useState('7:30 PM');
   const [guests, setGuests] = useState(2);
   const [notes, setNotes] = useState('');
+  const [estimatedDirectRate, setEstimatedDirectRate] = useState<number | undefined>(
+    prefill.estimatedDirectRate
+  );
   const [copyStatus, setCopyStatus] = useState('');
 
   useEffect(() => {
@@ -49,6 +52,7 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
     if (prefill.roomTierName) {
       setRoomTierName(prefill.roomTierName);
     }
+    setEstimatedDirectRate(prefill.estimatedDirectRate);
     if (prefill.nights && prefill.nights > 0) {
       const start = new Date();
       start.setDate(start.getDate() + 3);
@@ -123,7 +127,7 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
     guests,
     roomTierName,
     notes,
-    estimatedDirectRate: prefill.estimatedDirectRate,
+    estimatedDirectRate,
   };
 
   const whatsappUrl = buildWhatsAppInquiryUrl(inquiryPayload);
@@ -134,15 +138,19 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(messagePreview);
       } else {
+        const host = dialogRef.current ?? document.body;
         const textarea = document.createElement('textarea');
         textarea.value = messagePreview;
         textarea.setAttribute('readonly', '');
         textarea.style.position = 'fixed';
         textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
+        host.appendChild(textarea);
         textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
+        const copied = typeof document.execCommand === 'function' && document.execCommand('copy');
+        host.removeChild(textarea);
+        if (!copied) {
+          throw new Error('Copy command failed');
+        }
       }
       setCopyStatus('Inquiry copied to clipboard');
     } catch {
@@ -163,9 +171,9 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
             <p className="text-xs font-semibold uppercase tracking-wider text-amber-300">
               Zero-Commission Direct Desk
             </p>
-            <h1 id="booking-dialog-title" className="mt-1 text-2xl font-bold text-white">
+            <h2 id="booking-dialog-title" className="mt-1 text-2xl font-bold text-white">
               Direct WhatsApp &amp; Call Inquiry
-            </h1>
+            </h2>
           </div>
           <button
             type="button"
@@ -254,7 +262,13 @@ export function BookingDialog({ open, prefill, onClose }: BookingDialogProps) {
                   <select
                     id="booking-room"
                     value={roomTierName}
-                    onChange={(e) => setRoomTierName(e.target.value)}
+                    onChange={(e) => {
+                      const nextRoom = e.target.value;
+                      setRoomTierName(nextRoom);
+                      setEstimatedDirectRate(
+                        nextRoom === prefill.roomTierName ? prefill.estimatedDirectRate : undefined
+                      );
+                    }}
                     className="mt-1.5 w-full rounded-xl border border-[#1b3b2b]/20 bg-white px-3.5 py-2.5 text-sm text-[#1e293b]"
                   >
                     {ROOM_TIERS.map((tier) => (

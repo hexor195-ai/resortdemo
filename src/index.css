@@ -64,6 +64,7 @@ dialog::backdrop {
 
 /* Accessible CSS scroll-snap carousel track */
 .carousel-track {
+  position: relative;
   display: flex;
   gap: 1.25rem;
   overflow-x: auto;

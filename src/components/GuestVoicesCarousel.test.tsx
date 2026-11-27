@@ -30,4 +30,18 @@ describe('GuestVoicesCarousel', () => {
     expect(markers[1]).toHaveAttribute('aria-current', 'true');
     expect(screen.getByRole('status')).toHaveTextContent('Review 2 of 4');
   });
+
+  it('scrolls relative to track offsetLeft rather than document offset', async () => {
+    const user = userEvent.setup();
+    const scrollToMock = vi.fn();
+    Element.prototype.scrollTo = scrollToMock;
+
+    render(<GuestVoicesCarousel />);
+    const track = screen.getByRole('group', { name: /Guest review slides/i });
+    Object.defineProperty(track, 'offsetLeft', { value: 40, configurable: true });
+    Object.defineProperty(track.children[1], 'offsetLeft', { value: 540, configurable: true });
+
+    await user.click(screen.getByRole('button', { name: /Next review/i }));
+    expect(scrollToMock).toHaveBeenCalledWith(expect.objectContaining({ left: 500 }));
+  });
 });

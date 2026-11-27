@@ -50,5 +50,15 @@ describe('RateComparisonSection', () => {
 
     expect(screen.queryByText(/NaN/)).not.toBeInTheDocument();
     expect(screen.getAllByText(/₹0/).length).toBeGreaterThan(0);
+
+    fireEvent.change(nightsSlider, { target: { value: '25' } });
+    fireEvent.change(screen.getByLabelText(/Typical OTA Commission %/i), { target: { value: '10' } });
+    fireEvent.change(screen.getByLabelText(/Direct Website Guest Discount %/i), {
+      target: { value: '25' },
+    });
+
+    expect(screen.queryByText(/₹-/)).not.toBeInTheDocument();
+    expect(screen.getAllByText(/-₹/).length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByText(/Direct discount exceeds OTA commission/i)).toBeInTheDocument();
   });
 });
